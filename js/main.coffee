@@ -28,8 +28,8 @@ class Main
           angle = Math.atan(x1/x2)*(180/Math.PI)
           x = point.x - 30
           y = point.y - 54
-          if (point.x-prevPoint.x > 0)
-            angle = 180 + angle
+          # if (point.x-prevPoint.x > 0)
+            # angle = 180 + angle
           attr = "translate(#{x}, #{y}) rotate(#{angle},38,23)"
           cabin.setAttribute 'transform', attr
       ).repeat(999999999999).start()
@@ -37,6 +37,7 @@ class Main
   animate:->
     requestAnimationFrame(@animate)
     TWEEN.update()
+
 
   bind:(func, context) ->
     wrapper = ->
