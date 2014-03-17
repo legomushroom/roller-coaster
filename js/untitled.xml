@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>roller coaster</title>
-    <link href="favicon.ico" rel="icon" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-  </head>
-  <body>
-    <section role="main" id="main">
-      <div class="svg-container">
-        <div class="svg-container__content"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2702 1819" enable-background="new 0 0 2702 1819" xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2702 1819" enable-background="new 0 0 2702 1819" xml:space="preserve">
 
 <defs>
 	<g id="cabin1">
@@ -3034,11 +3023,3 @@
 </g>
 
 </svg>
-
-        </div>
-      </div>
-    </section>
-    <script src="js/tween.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-</html>

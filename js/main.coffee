@@ -50,7 +50,7 @@ class Main
 
 
     @train2Tween = new TWEEN.Tween({ length: @train2.path.getTotalLength() })
-      .to({ length: 0 }, 10000)
+      .to({ length: 0 }, 5000)
       .onUpdate(->
         for cabin, i in it.train2.cabins
           shift = i*it.cabinWidth
@@ -59,7 +59,7 @@ class Main
           x1 = point.y - prevPoint.y
           x2 = point.x - prevPoint.x
           angle = Math.atan(x1/x2)*(180/Math.PI)
-          x = point.x - 30
+          x = point.x - 50
           y = point.y - 54
           if (point.x-prevPoint.x > 0)
             if !cabin.isRotated

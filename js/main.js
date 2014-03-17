@@ -74,7 +74,7 @@
         length: this.train2.path.getTotalLength()
       }).to({
         length: 0
-      }, 10000).onUpdate(function() {
+      }, 5000).onUpdate(function() {
         var angle, attr, cabin, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
         _ref = it.train2.cabins;
         _results = [];
@@ -86,7 +86,7 @@
           x1 = point.y - prevPoint.y;
           x2 = point.x - prevPoint.x;
           angle = Math.atan(x1 / x2) * (180 / Math.PI);
-          x = point.x - 30;
+          x = point.x - 50;
           y = point.y - 54;
           if (point.x - prevPoint.x > 0) {
             if (!cabin.isRotated) {
