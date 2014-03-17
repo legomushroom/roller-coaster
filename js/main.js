@@ -4,7 +4,8 @@
   Main = (function() {
     function Main() {
       this.vars();
-      this.launchTrain1();
+      this.launchTrains();
+      this.launchClouds();
       this.animate();
     }
 
@@ -33,14 +34,44 @@
       return this.animate = this.bind(this.animate, this);
     };
 
-    Main.prototype.launchTrain1 = function() {
+    Main.prototype.launchClouds = function() {
+      var base, cloud1, cloud11, cloudEnd, cloudStart, it, time;
+      it = this;
+      cloudStart = 3200;
+      cloudEnd = -400;
+      cloud1 = document.getElementById('js-cloud1');
+      cloud11 = document.getElementById('js-cloud11');
+      base = 20000;
+      time = 10000;
+      this.cloud1Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time + base).onUpdate(function() {
+        return cloud1.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).start({
+        progress: .5
+      });
+      this.cloud11Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time + base).onUpdate(function() {
+        return cloud11.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).delay((time + base) / 2).start({
+        progress: .5
+      });
+      return console.log(this.cloud41Tween);
+    };
+
+    Main.prototype.launchTrains = function() {
       var it;
       it = this;
       this.train1Tween = new TWEEN.Tween({
         length: this.train1.path.getTotalLength()
       }).to({
         length: 0
-      }, 10000).onUpdate(function() {
+      }, 8000).onUpdate(function() {
         var angle, attr, cabin, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
         _ref = it.train1.cabins;
         _results = [];

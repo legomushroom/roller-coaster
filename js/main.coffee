@@ -1,7 +1,8 @@
 class Main
   constructor:->
     @vars()
-    @launchTrain1()
+    @launchTrains()
+    @launchClouds()
     @animate()
   vars:->
     @train1 =
@@ -22,10 +23,72 @@ class Main
 
     @animate = @bind @animate, @
 
-  launchTrain1:->
+  launchClouds:->
+    it = @
+    cloudStart  = 3200
+    cloudEnd    = -400
+    cloud1  = document.getElementById('js-cloud1')
+    cloud11 = document.getElementById('js-cloud11')
+    
+    base = 20000
+    time = 10000
+    @cloud1Tween = new TWEEN.Tween({ left: cloudStart })
+      .to({ left: cloudEnd }, time+base)
+      .onUpdate(->
+        cloud1.setAttribute 'transform', "translate(#{@left})"
+      ).repeat(9999999).start(progress: .5)
+    @cloud11Tween = new TWEEN.Tween({ left: cloudStart })
+      .to({ left: cloudEnd }, time+base)
+      .onUpdate(->
+        cloud11.setAttribute 'transform', "translate(#{@left})"
+      ).repeat(9999999).delay((time+base)/2).start(progress: .5)
+    # cloud2  = document.getElementById('js-cloud2')
+    # cloud21 = document.getElementById('js-cloud21')
+    # time = 5000
+    # @cloud2Tween = new TWEEN.Tween({ left: cloudStart })
+    #   .to({ left: cloudEnd }, time+base)
+    #   .onUpdate(->
+    #     cloud2.setAttribute 'transform', "translate(#{@left})"
+    #   ).repeat(9999999).start()
+    # @cloud21Tween = new TWEEN.Tween({ left: cloudStart })
+    #   .to({ left: cloudEnd }, time+base)
+    #   .onUpdate(->
+    #     cloud21.setAttribute 'transform', "translate(#{@left})"
+    #   ).repeat(9999999).delay((time+base)/2).start()
+    # cloud3  = document.getElementById('js-cloud3')
+    # cloud31 = document.getElementById('js-cloud31')
+    # time = 7000
+    # @cloud3Tween = new TWEEN.Tween({ left: cloudStart })
+    #   .to({ left: cloudEnd }, time+base)
+    #   .onUpdate(->
+    #     cloud3.setAttribute 'transform', "translate(#{@left})"
+    #   ).repeat(9999999).start()
+    # @cloud31Tween = new TWEEN.Tween({ left: cloudStart })
+    #   .to({ left: cloudEnd }, time+base)
+    #   .onUpdate(->
+    #     cloud31.setAttribute 'transform', "translate(#{@left})"
+    #   ).repeat(9999999).delay((time+base)/2).start()
+    # cloud4  = document.getElementById('js-cloud4')
+    # cloud41 = document.getElementById('js-cloud41')
+    # time = 2000
+    # @cloud4Tween = new TWEEN.Tween({ left: cloudStart })
+    #   .to({ left: cloudEnd }, time+base)
+    #   .onUpdate(->
+    #     cloud4.setAttribute 'transform', "translate(#{@left})"
+    #   ).repeat(9999999).start()
+    # @cloud41Tween = new TWEEN.Tween({ left: cloudStart })
+    #   .to({ left: cloudEnd }, time+base)
+    #   .onUpdate(->
+    #     cloud41.setAttribute 'transform', "translate(#{@left})"
+    #   ).repeat(9999999).delay((time+base)/2).start()
+
+    console.log @cloud41Tween
+
+
+  launchTrains:->
     it = @
     @train1Tween = new TWEEN.Tween({ length: @train1.path.getTotalLength() })
-      .to({ length: 0 }, 10000)
+      .to({ length: 0 }, 8000)
       .onUpdate(->
         for cabin, i in it.train1.cabins
           shift = i*it.cabinWidth
@@ -41,7 +104,7 @@ class Main
               cabin.children[0].setAttribute 'xlink:href', '#cabin2'
               cabin.isRotated = true
           else
-            if cabin.isRotated 
+            if cabin.isRotated
               cabin.children[0].setAttribute 'xlink:href', '#cabin1'
               cabin.isRotated = false
           attr = "translate(#{x}, #{y}) rotate(#{angle},38,23)"
@@ -66,7 +129,7 @@ class Main
               cabin.children[0].setAttribute 'xlink:href', '#cabin2'
               cabin.isRotated = true
           else
-            if cabin.isRotated 
+            if cabin.isRotated
               cabin.children[0].setAttribute 'xlink:href', '#cabin1'
               cabin.isRotated = false
           attr = "translate(#{x}, #{y}) rotate(#{angle},38,23)"
