@@ -4,13 +4,13 @@ class Main
     @launchTrain1()
     @animate()
   vars:->
-    @cabinWidth = 100
     @train1 =
       cabins: []
       path: document.getElementById('js-blue-path')
     for i in [1..5]
       if cabin = document.getElementById("js-blue-train-cabin#{i}")
         @train1.cabins.push cabin
+    @cabinWidth = 2.5*@train1.cabins[0].getBoundingClientRect().width
 
     @animate = @bind @animate, @
 
@@ -28,8 +28,14 @@ class Main
           angle = Math.atan(x1/x2)*(180/Math.PI)
           x = point.x - 30
           y = point.y - 54
-          # if (point.x-prevPoint.x > 0)
-            # angle = 180 + angle
+          if (point.x-prevPoint.x > 0)
+            if !cabin.isRotated
+              cabin.children[0].setAttribute 'xlink:href', '#cabin2'
+              cabin.isRotated = true
+          else
+            if cabin.isRotated 
+              cabin.children[0].setAttribute 'xlink:href', '#cabin1'
+              cabin.isRotated = false
           attr = "translate(#{x}, #{y}) rotate(#{angle},38,23)"
           cabin.setAttribute 'transform', attr
       ).repeat(999999999999).start()
@@ -37,7 +43,6 @@ class Main
   animate:->
     requestAnimationFrame(@animate)
     TWEEN.update()
-
 
   bind:(func, context) ->
     wrapper = ->

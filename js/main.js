@@ -10,7 +10,6 @@
 
     Main.prototype.vars = function() {
       var cabin, i, _i;
-      this.cabinWidth = 100;
       this.train1 = {
         cabins: [],
         path: document.getElementById('js-blue-path')
@@ -20,6 +19,7 @@
           this.train1.cabins.push(cabin);
         }
       }
+      this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
       return this.animate = this.bind(this.animate, this);
     };
 
@@ -44,6 +44,17 @@
           angle = Math.atan(x1 / x2) * (180 / Math.PI);
           x = point.x - 30;
           y = point.y - 54;
+          if (point.x - prevPoint.x > 0) {
+            if (!cabin.isRotated) {
+              cabin.children[0].setAttribute('xlink:href', '#cabin2');
+              cabin.isRotated = true;
+            }
+          } else {
+            if (cabin.isRotated) {
+              cabin.children[0].setAttribute('xlink:href', '#cabin1');
+              cabin.isRotated = false;
+            }
+          }
           attr = "translate(" + x + ", " + y + ") rotate(" + angle + ",38,23)";
           _results.push(cabin.setAttribute('transform', attr));
         }
