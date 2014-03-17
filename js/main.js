@@ -9,7 +9,7 @@
     }
 
     Main.prototype.vars = function() {
-      var cabin, i, _i;
+      var cabin, i, _i, _j;
       this.train1 = {
         cabins: [],
         path: document.getElementById('js-blue-path')
@@ -20,13 +20,23 @@
         }
       }
       this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
+      this.train2 = {
+        cabins: [],
+        path: document.getElementById('js-yellow-path')
+      };
+      for (i = _j = 1; _j <= 5; i = ++_j) {
+        if (cabin = document.getElementById("js-yellow-train-cabin" + i)) {
+          this.train2.cabins.push(cabin);
+        }
+      }
+      this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
       return this.animate = this.bind(this.animate, this);
     };
 
     Main.prototype.launchTrain1 = function() {
       var it;
       it = this;
-      return this.train1Tween = new TWEEN.Tween({
+      this.train1Tween = new TWEEN.Tween({
         length: this.train1.path.getTotalLength()
       }).to({
         length: 0
@@ -39,6 +49,40 @@
           shift = i * it.cabinWidth;
           point = it.train1.path.getPointAtLength(this.length - shift);
           prevPoint = it.train1.path.getPointAtLength(this.length - shift - 1);
+          x1 = point.y - prevPoint.y;
+          x2 = point.x - prevPoint.x;
+          angle = Math.atan(x1 / x2) * (180 / Math.PI);
+          x = point.x - 30;
+          y = point.y - 54;
+          if (point.x - prevPoint.x > 0) {
+            if (!cabin.isRotated) {
+              cabin.children[0].setAttribute('xlink:href', '#cabin2');
+              cabin.isRotated = true;
+            }
+          } else {
+            if (cabin.isRotated) {
+              cabin.children[0].setAttribute('xlink:href', '#cabin1');
+              cabin.isRotated = false;
+            }
+          }
+          attr = "translate(" + x + ", " + y + ") rotate(" + angle + ",38,23)";
+          _results.push(cabin.setAttribute('transform', attr));
+        }
+        return _results;
+      }).repeat(999999999999).start();
+      return this.train2Tween = new TWEEN.Tween({
+        length: this.train2.path.getTotalLength()
+      }).to({
+        length: 0
+      }, 10000).onUpdate(function() {
+        var angle, attr, cabin, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
+        _ref = it.train2.cabins;
+        _results = [];
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          cabin = _ref[i];
+          shift = i * it.cabinWidth;
+          point = it.train2.path.getPointAtLength(this.length - shift);
+          prevPoint = it.train2.path.getPointAtLength(this.length - shift - 1);
           x1 = point.y - prevPoint.y;
           x2 = point.x - prevPoint.x;
           angle = Math.atan(x1 / x2) * (180 / Math.PI);

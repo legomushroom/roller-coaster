@@ -12,6 +12,14 @@ class Main
         @train1.cabins.push cabin
     @cabinWidth = 2.5*@train1.cabins[0].getBoundingClientRect().width
 
+    @train2 =
+      cabins: []
+      path: document.getElementById('js-yellow-path')
+    for i in [1..5]
+      if cabin = document.getElementById("js-yellow-train-cabin#{i}")
+        @train2.cabins.push cabin
+    @cabinWidth = 2.5*@train1.cabins[0].getBoundingClientRect().width
+
     @animate = @bind @animate, @
 
   launchTrain1:->
@@ -23,6 +31,31 @@ class Main
           shift = i*it.cabinWidth
           point = it.train1.path.getPointAtLength @length-shift
           prevPoint = it.train1.path.getPointAtLength @length-shift-1
+          x1 = point.y - prevPoint.y
+          x2 = point.x - prevPoint.x
+          angle = Math.atan(x1/x2)*(180/Math.PI)
+          x = point.x - 30
+          y = point.y - 54
+          if (point.x-prevPoint.x > 0)
+            if !cabin.isRotated
+              cabin.children[0].setAttribute 'xlink:href', '#cabin2'
+              cabin.isRotated = true
+          else
+            if cabin.isRotated 
+              cabin.children[0].setAttribute 'xlink:href', '#cabin1'
+              cabin.isRotated = false
+          attr = "translate(#{x}, #{y}) rotate(#{angle},38,23)"
+          cabin.setAttribute 'transform', attr
+      ).repeat(999999999999).start()
+
+
+    @train2Tween = new TWEEN.Tween({ length: @train2.path.getTotalLength() })
+      .to({ length: 0 }, 10000)
+      .onUpdate(->
+        for cabin, i in it.train2.cabins
+          shift = i*it.cabinWidth
+          point = it.train2.path.getPointAtLength @length-shift
+          prevPoint = it.train2.path.getPointAtLength @length-shift-1
           x1 = point.y - prevPoint.y
           x2 = point.x - prevPoint.x
           angle = Math.atan(x1/x2)*(180/Math.PI)
