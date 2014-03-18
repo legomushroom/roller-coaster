@@ -4,6 +4,7 @@
   Main = (function() {
     function Main() {
       this.vars();
+      this.fixIEPatterns();
       this.launchTrains();
       this.launchClouds();
       this.animate();
@@ -33,8 +34,23 @@
       this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
       this.childNode = this.isIE() ? 1 : 0;
       this.childMethod = this.isIE() ? 'childNodes' : 'children';
-      console.log(this.childNode);
+      this.ns = 'http://www.w3.org/2000/svg';
       return this.animate = this.bind(this.animate, this);
+    };
+
+    Main.prototype.fixIEPatterns = function() {
+      var pattern4, receptacle, svgfragment;
+      if (!this.isIE()) {
+        return;
+      }
+      console.log('ie');
+      pattern4 = document.getElementById('pattern4');
+      receptacle = document.createElement('div');
+      svgfragment = '<svg>' + '<image xmlns="http://www.w3.org/2000/svg" width="108px" height="108px" xlink:href="css/i/pattern4.png" />' + '</svg>';
+      receptacle.innerHTML = '' + svgfragment;
+      return Array.prototype.slice.call(receptacle.childNodes[0].childNodes).forEach(function(el) {
+        return pattern4.appendChild(el);
+      });
     };
 
     Main.prototype.launchClouds = function() {
