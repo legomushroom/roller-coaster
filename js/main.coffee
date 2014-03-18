@@ -25,20 +25,35 @@ class Main
     @childNode    = if @isIE() then 1 else 0
     @childMethod  = if @isIE() then 'childNodes' else 'children'
 
-    @ns = 'http://www.w3.org/2000/svg'
-
     @animate = @bind @animate, @
 
   fixIEPatterns:->
     if !@isIE() then return
     console.log 'ie'
-    pattern4 = document.getElementById 'pattern4'
+    @addImageToPattern 
+                  pattern: 'pattern2'
+                  image: 'css/i/pattern2.png'
+    @addImageToPattern 
+                  pattern: 'pattern3'
+                  image: 'css/i/pattern3.png'
+    @addImageToPattern 
+                  pattern: 'pattern4'
+                  image: 'css/i/pattern4.png'
+    @addImageToPattern 
+                  pattern: 'pattern5'
+                  image: 'css/i/pattern5.png'
+    
+
+  addImageToPattern:(o)->
+    pattern = document.getElementById o.pattern
+    console.log pattern
     receptacle = document.createElement('div')
-    svgfragment = '<svg>' + '<image xmlns="http://www.w3.org/2000/svg" width="108px" height="108px" xlink:href="css/i/pattern4.png" />' + '</svg>';
+    svgfragment = "<svg><image xmlns=\"http://www.w3.org/2000/svg\" width=\"108px\" height=\"108px\" xlink:href=\"#{o.image}\" /></svg>";
     receptacle.innerHTML = '' + svgfragment
     Array.prototype.slice.call(receptacle.childNodes[0].childNodes).forEach((el)->
-      pattern4.appendChild(el)
+      pattern.appendChild(el)
     )
+
 
   launchClouds:->
     it = @

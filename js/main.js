@@ -34,22 +34,41 @@
       this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
       this.childNode = this.isIE() ? 1 : 0;
       this.childMethod = this.isIE() ? 'childNodes' : 'children';
-      this.ns = 'http://www.w3.org/2000/svg';
       return this.animate = this.bind(this.animate, this);
     };
 
     Main.prototype.fixIEPatterns = function() {
-      var pattern4, receptacle, svgfragment;
       if (!this.isIE()) {
         return;
       }
       console.log('ie');
-      pattern4 = document.getElementById('pattern4');
+      this.addImageToPattern({
+        pattern: 'pattern2',
+        image: 'css/i/pattern2.png'
+      });
+      this.addImageToPattern({
+        pattern: 'pattern3',
+        image: 'css/i/pattern3.png'
+      });
+      this.addImageToPattern({
+        pattern: 'pattern4',
+        image: 'css/i/pattern4.png'
+      });
+      return this.addImageToPattern({
+        pattern: 'pattern5',
+        image: 'css/i/pattern5.png'
+      });
+    };
+
+    Main.prototype.addImageToPattern = function(o) {
+      var pattern, receptacle, svgfragment;
+      pattern = document.getElementById(o.pattern);
+      console.log(pattern);
       receptacle = document.createElement('div');
-      svgfragment = '<svg>' + '<image xmlns="http://www.w3.org/2000/svg" width="108px" height="108px" xlink:href="css/i/pattern4.png" />' + '</svg>';
+      svgfragment = "<svg><image xmlns=\"http://www.w3.org/2000/svg\" width=\"108px\" height=\"108px\" xlink:href=\"" + o.image + "\" /></svg>";
       receptacle.innerHTML = '' + svgfragment;
       return Array.prototype.slice.call(receptacle.childNodes[0].childNodes).forEach(function(el) {
-        return pattern4.appendChild(el);
+        return pattern.appendChild(el);
       });
     };
 
