@@ -31,37 +31,97 @@
         }
       }
       this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
+      this.childNode = this.isIE() ? 1 : 0;
+      this.childMethod = this.isIE() ? 'childNodes' : 'children';
+      console.log(this.childNode);
       return this.animate = this.bind(this.animate, this);
     };
 
     Main.prototype.launchClouds = function() {
-      var base, cloud1, cloud11, cloudEnd, cloudStart, it, time;
+      var cloud1, cloud11, cloud2, cloud21, cloud3, cloud31, cloud4, cloud41, cloudEnd, cloudStart, it, time;
       it = this;
       cloudStart = 3200;
       cloudEnd = -400;
       cloud1 = document.getElementById('js-cloud1');
       cloud11 = document.getElementById('js-cloud11');
-      base = 20000;
-      time = 10000;
+      time = 90000;
       this.cloud1Tween = new TWEEN.Tween({
         left: cloudStart
       }).to({
         left: cloudEnd
-      }, time + base).onUpdate(function() {
+      }, time).onUpdate(function() {
         return cloud1.setAttribute('transform', "translate(" + this.left + ")");
       }).repeat(9999999).start({
-        progress: .5
+        progress: .65
       });
       this.cloud11Tween = new TWEEN.Tween({
         left: cloudStart
       }).to({
         left: cloudEnd
-      }, time + base).onUpdate(function() {
+      }, time).onUpdate(function() {
         return cloud11.setAttribute('transform', "translate(" + this.left + ")");
-      }).repeat(9999999).delay((time + base) / 2).start({
-        progress: .5
+      }).repeat(9999999).delay(time / 2).start({
+        progress: .65
       });
-      return console.log(this.cloud41Tween);
+      cloud2 = document.getElementById('js-cloud2');
+      cloud21 = document.getElementById('js-cloud21');
+      time = 75000;
+      this.cloud2Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time).onUpdate(function() {
+        return cloud2.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).start({
+        progress: .25
+      });
+      this.cloud21Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time).onUpdate(function() {
+        return cloud21.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).delay(time / 2).start({
+        progress: .25
+      });
+      cloud3 = document.getElementById('js-cloud3');
+      cloud31 = document.getElementById('js-cloud31');
+      time = 100000;
+      this.cloud3Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time).onUpdate(function() {
+        return cloud3.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).start({
+        progress: .75
+      });
+      this.cloud31Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time).onUpdate(function() {
+        return cloud31.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).delay(time / 2).start({
+        progress: .75
+      });
+      cloud4 = document.getElementById('js-cloud4');
+      cloud41 = document.getElementById('js-cloud41');
+      time = 110000;
+      this.cloud4Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time).onUpdate(function() {
+        return cloud4.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).start();
+      return this.cloud41Tween = new TWEEN.Tween({
+        left: cloudStart
+      }).to({
+        left: cloudEnd
+      }, time).onUpdate(function() {
+        return cloud41.setAttribute('transform', "translate(" + this.left + ")");
+      }).repeat(9999999).delay(time / 2).start();
     };
 
     Main.prototype.launchTrains = function() {
@@ -87,16 +147,16 @@
           y = point.y - 54;
           if (point.x - prevPoint.x > 0) {
             if (!cabin.isRotated) {
-              cabin.children[0].setAttribute('xlink:href', '#cabin2');
+              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin2');
               cabin.isRotated = true;
             }
           } else {
             if (cabin.isRotated) {
-              cabin.children[0].setAttribute('xlink:href', '#cabin1');
+              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin1');
               cabin.isRotated = false;
             }
           }
-          attr = "translate(" + x + ", " + y + ") rotate(" + angle + ",38,23)";
+          attr = "translate(" + x + ", " + y + ") rotate(" + (angle || 0) + ",38,23)";
           _results.push(cabin.setAttribute('transform', attr));
         }
         return _results;
@@ -121,16 +181,16 @@
           y = point.y - 54;
           if (point.x - prevPoint.x > 0) {
             if (!cabin.isRotated) {
-              cabin.children[0].setAttribute('xlink:href', '#cabin2');
+              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin2');
               cabin.isRotated = true;
             }
           } else {
             if (cabin.isRotated) {
-              cabin.children[0].setAttribute('xlink:href', '#cabin1');
+              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin1');
               cabin.isRotated = false;
             }
           }
-          attr = "translate(" + x + ", " + y + ") rotate(" + angle + ",38,23)";
+          attr = "translate(" + x + ", " + y + ") rotate(" + (angle || 0) + ",38,23)";
           _results.push(cabin.setAttribute('transform', attr));
         }
         return _results;
@@ -140,6 +200,26 @@
     Main.prototype.animate = function() {
       requestAnimationFrame(this.animate);
       return TWEEN.update();
+    };
+
+    Main.prototype.isIE = function() {
+      var msie, rv, rvNum, trident, ua, undef;
+      if (this.isIECache) {
+        return this.isIECache;
+      }
+      undef = void 0;
+      rv = -1;
+      ua = window.navigator.userAgent;
+      msie = ua.indexOf("MSIE ");
+      trident = ua.indexOf("Trident/");
+      if (msie > 0) {
+        rv = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)), 10);
+      } else if (trident > 0) {
+        rvNum = ua.indexOf("rv:");
+        rv = parseInt(ua.substring(rvNum + 3, ua.indexOf(".", rvNum)), 10);
+      }
+      this.isIECache = (rv > -1 ? rv : undef);
+      return this.isIECache;
     };
 
     Main.prototype.bind = function(func, context) {

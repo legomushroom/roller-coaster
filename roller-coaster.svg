@@ -292,19 +292,19 @@
 
 
 
-<g id="js-yellow-train-cabin1">
+<g transform="translate(0, -100)" id="js-yellow-train-cabin1">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-yellow-train-cabin2">
+<g transform="translate(0, -100)" id="js-yellow-train-cabin2">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-yellow-train-cabin3">
+<g transform="translate(0, -100)" id="js-yellow-train-cabin3">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-yellow-train-cabin4">
+<g transform="translate(0, -100)" id="js-yellow-train-cabin4">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-yellow-train-cabin5">
+<g transform="translate(0, -100)" id="js-yellow-train-cabin5">
 	<use xlink:href="#cabin1"></use>
 </g>
 
@@ -962,19 +962,19 @@
 
 
 
-<g id="js-blue-train-cabin1">
+<g transform="translate(0, -100)" id="js-blue-train-cabin1">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-blue-train-cabin2">
+<g transform="translate(0, -100)" id="js-blue-train-cabin2">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-blue-train-cabin3">
+<g transform="translate(0, -100)" id="js-blue-train-cabin3">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-blue-train-cabin4">
+<g transform="translate(0, -100)" id="js-blue-train-cabin4">
 	<use xlink:href="#cabin1"></use>
 </g>
-<g id="js-blue-train-cabin5">
+<g transform="translate(0, -100)" id="js-blue-train-cabin5">
 	<use xlink:href="#cabin1"></use>
 </g>
 
