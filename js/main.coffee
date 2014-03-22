@@ -20,7 +20,7 @@ class Main
     for i in [1..5]
       if cabin = document.getElementById("js-yellow-train-cabin#{i}")
         @train2.cabins.push cabin
-    @cabinWidth = 100
+    @cabinWidth = 90
 
     @childNode    = if @isIE() then 1 else 0
     @childMethod  = if @isIE() then 'childNodes' else 'children'

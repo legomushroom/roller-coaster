@@ -31,7 +31,7 @@
           this.train2.cabins.push(cabin);
         }
       }
-      this.cabinWidth = 100;
+      this.cabinWidth = 90;
       this.childNode = this.isIE() ? 1 : 0;
       this.childMethod = this.isIE() ? 'childNodes' : 'children';
       return this.animate = this.bind(this.animate, this);
