@@ -31,7 +31,7 @@
           this.train2.cabins.push(cabin);
         }
       }
-      this.cabinWidth = 2.5 * this.train1.cabins[0].getBoundingClientRect().width;
+      this.cabinWidth = 100;
       this.childNode = this.isIE() ? 1 : 0;
       this.childMethod = this.isIE() ? 'childNodes' : 'children';
       return this.animate = this.bind(this.animate, this);
@@ -41,7 +41,6 @@
       if (!this.isIE()) {
         return;
       }
-      console.log('ie');
       this.addImageToPattern({
         pattern: 'pattern2',
         image: 'css/i/pattern2.png'
@@ -65,7 +64,7 @@
       pattern = document.getElementById(o.pattern);
       console.log(pattern);
       receptacle = document.createElement('div');
-      svgfragment = "<svg><image xmlns=\"http://www.w3.org/2000/svg\" width=\"108px\" height=\"108px\" xlink:href=\"" + o.image + "\" /></svg>";
+      svgfragment = "<svg>\n  <image\n    xmlns=\"http://www.w3.org/2000/svg\"\n    width=\"108px\"\n    height=\"108px\"\n    xlink:href=\"" + o.image + "\"\n  />\n</svg>";
       receptacle.innerHTML = '' + svgfragment;
       return Array.prototype.slice.call(receptacle.childNodes[0].childNodes).forEach(function(el) {
         return pattern.appendChild(el);
@@ -167,7 +166,7 @@
       }).to({
         length: 0
       }, 8000).onUpdate(function() {
-        var angle, attr, cabin, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
+        var angle, attr, cabin, cabinChild, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
         _ref = it.train1.cabins;
         _results = [];
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
@@ -182,12 +181,14 @@
           y = point.y - 54;
           if (point.x - prevPoint.x > 0) {
             if (!cabin.isRotated) {
-              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin2');
+              cabinChild = cabin[it.childMethod][it.childNode];
+              cabinChild.setAttribute('xlink:href', '#cabin2');
               cabin.isRotated = true;
             }
           } else {
             if (cabin.isRotated) {
-              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin1');
+              cabinChild = cabin[it.childMethod][it.childNode];
+              cabinChild.setAttribute('xlink:href', '#cabin1');
               cabin.isRotated = false;
             }
           }
@@ -201,7 +202,7 @@
       }).to({
         length: 0
       }, 5000).onUpdate(function() {
-        var angle, attr, cabin, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
+        var angle, attr, cabin, cabinChild, i, point, prevPoint, shift, x, x1, x2, y, _i, _len, _ref, _results;
         _ref = it.train2.cabins;
         _results = [];
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
@@ -216,12 +217,14 @@
           y = point.y - 54;
           if (point.x - prevPoint.x > 0) {
             if (!cabin.isRotated) {
-              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin2');
+              cabinChild = cabin[it.childMethod][it.childNode];
+              cabinChild.setAttribute('xlink:href', '#cabin2');
               cabin.isRotated = true;
             }
           } else {
             if (cabin.isRotated) {
-              cabin[it.childMethod][it.childNode].setAttribute('xlink:href', '#cabin1');
+              cabinChild = cabin[it.childMethod][it.childNode];
+              cabinChild.setAttribute('xlink:href', '#cabin1');
               cabin.isRotated = false;
             }
           }

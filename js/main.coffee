@@ -20,7 +20,7 @@ class Main
     for i in [1..5]
       if cabin = document.getElementById("js-yellow-train-cabin#{i}")
         @train2.cabins.push cabin
-    @cabinWidth = 2.5*@train1.cabins[0].getBoundingClientRect().width
+    @cabinWidth = 100
 
     @childNode    = if @isIE() then 1 else 0
     @childMethod  = if @isIE() then 'childNodes' else 'children'
@@ -29,28 +29,36 @@ class Main
 
   fixIEPatterns:->
     if !@isIE() then return
-    console.log 'ie'
-    @addImageToPattern 
-                  pattern: 'pattern2'
-                  image: 'css/i/pattern2.png'
-    @addImageToPattern 
-                  pattern: 'pattern3'
-                  image: 'css/i/pattern3.png'
-    @addImageToPattern 
-                  pattern: 'pattern4'
-                  image: 'css/i/pattern4.png'
-    @addImageToPattern 
-                  pattern: 'pattern5'
-                  image: 'css/i/pattern5.png'
+    @addImageToPattern
+      pattern: 'pattern2'
+      image: 'css/i/pattern2.png'
+    @addImageToPattern
+      pattern: 'pattern3'
+      image: 'css/i/pattern3.png'
+    @addImageToPattern
+      pattern: 'pattern4'
+      image: 'css/i/pattern4.png'
+    @addImageToPattern
+      pattern: 'pattern5'
+      image: 'css/i/pattern5.png'
     
 
   addImageToPattern:(o)->
     pattern = document.getElementById o.pattern
     console.log pattern
     receptacle = document.createElement('div')
-    svgfragment = "<svg><image xmlns=\"http://www.w3.org/2000/svg\" width=\"108px\" height=\"108px\" xlink:href=\"#{o.image}\" /></svg>";
+    svgfragment = """
+      <svg>
+        <image
+          xmlns=\"http://www.w3.org/2000/svg\"
+          width=\"108px\"
+          height=\"108px\"
+          xlink:href=\"#{o.image}\"
+        />
+      </svg>
+    """
     receptacle.innerHTML = '' + svgfragment
-    Array.prototype.slice.call(receptacle.childNodes[0].childNodes).forEach((el)->
+    Array::slice.call(receptacle.childNodes[0].childNodes).forEach((el)->
       pattern.appendChild(el)
     )
 
@@ -129,11 +137,13 @@ class Main
           y = point.y - 54
           if (point.x-prevPoint.x > 0)
             if !cabin.isRotated
-              cabin[it.childMethod][it.childNode].setAttribute 'xlink:href', '#cabin2'
+              cabinChild = cabin[it.childMethod][it.childNode]
+              cabinChild.setAttribute 'xlink:href', '#cabin2'
               cabin.isRotated = true
           else
             if cabin.isRotated
-              cabin[it.childMethod][it.childNode].setAttribute 'xlink:href', '#cabin1'
+              cabinChild = cabin[it.childMethod][it.childNode]
+              cabinChild.setAttribute 'xlink:href', '#cabin1'
               cabin.isRotated = false
           attr = "translate(#{x}, #{y}) rotate(#{angle or 0},38,23)"
           cabin.setAttribute 'transform', attr
@@ -154,11 +164,13 @@ class Main
           y = point.y - 54
           if (point.x-prevPoint.x > 0)
             if !cabin.isRotated
-              cabin[it.childMethod][it.childNode].setAttribute 'xlink:href', '#cabin2'
+              cabinChild = cabin[it.childMethod][it.childNode]
+              cabinChild.setAttribute 'xlink:href', '#cabin2'
               cabin.isRotated = true
           else
             if cabin.isRotated
-              cabin[it.childMethod][it.childNode].setAttribute 'xlink:href', '#cabin1'
+              cabinChild = cabin[it.childMethod][it.childNode]
+              cabinChild.setAttribute 'xlink:href', '#cabin1'
               cabin.isRotated = false
           attr = "translate(#{x}, #{y}) rotate(#{angle or 0},38,23)"
           cabin.setAttribute 'transform', attr
